@@ -12,14 +12,8 @@
 */
 
 Route::get('/', function () {
-    \App\User::create(
-        ['name' => 'Ryan Chenkie',
-            'email' => 'ryanchenkie@gmail.com',
-            'password' => Hash::make('secret')]);
-
     return view('welcome');
 });
-
 
 Route::group(['prefix' => 'api'], function()
 {
