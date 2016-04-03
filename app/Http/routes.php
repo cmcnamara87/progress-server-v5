@@ -26,4 +26,5 @@ Route::group(['prefix' => 'api'], function()
     Route::resource('projects', 'ProjectsController');
     Route::resource('projects.folders', 'ProjectFoldersController');
     Route::resource('progress', 'ProgressController');
+    Route::resource('posts', 'PostsController');
 });
