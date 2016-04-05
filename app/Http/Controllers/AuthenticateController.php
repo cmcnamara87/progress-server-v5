@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Transformers\UserTransformer;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -31,7 +32,10 @@ class AuthenticateController extends Controller
         $user = $request->only('name', 'email', 'password');
         $user['password'] =  Hash::make('password');
         $user = User::create($user);
-        return response()->json($user);
+
+        return fractal()
+            ->item($user, new UserTransformer())
+            ->toArray();
     }
 
     public function authenticate(Request $request, JWTAuth $JWTAuth)
@@ -75,7 +79,9 @@ class AuthenticateController extends Controller
         }
 
         // the token is valid and we have found the user via the sub claim
-        return response()->json(compact('user'));
+        return fractal()
+            ->item($user, new UserTransformer())
+            ->toArray();
     }
 
 }
