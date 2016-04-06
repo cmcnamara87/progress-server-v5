@@ -157,6 +157,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         Spatie\Fractal\FractalServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class
+
 
 
     ],
@@ -208,7 +210,7 @@ return [
         'JWTAuth'   => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Fractal' => Spatie\Fractal\FractalFacade::class,
-
+        'Image' => Intervention\Image\Facades\Image::class
 
     ],
 

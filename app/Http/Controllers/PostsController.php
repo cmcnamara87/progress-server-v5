@@ -6,6 +6,8 @@ use App\Post;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Input;
+use Intervention\Image\Facades\Image;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class PostsController extends Controller
@@ -24,9 +26,21 @@ class PostsController extends Controller
     }
 
     public function store(Request $request) {
+
         $data = $request->only('text');
         $user = JWTAuth::parseToken()->toUser();
         $data['user_id'] = $user->id;
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileName = time() . "-" . snake_case($file->getClientOriginalName());
+            $path = public_path('posts/' . $fileName);
+
+            Image::make($file)
+//                ->resize(400, 300)
+                ->save($path);
+            $data['image_url'] = asset('posts/' . $fileName);
+        }
         $post = Post::create($data);
         return response()->json($post);
     }
