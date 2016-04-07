@@ -26,5 +26,6 @@ Route::group(['prefix' => 'api'], function()
     Route::resource('projects', 'ProjectsController');
     Route::resource('projects.folders', 'ProjectFoldersController');
     Route::resource('progress', 'ProgressController');
+    Route::get('posts/public', 'PostsController@getPublicPosts');
     Route::resource('posts', 'PostsController');
 });

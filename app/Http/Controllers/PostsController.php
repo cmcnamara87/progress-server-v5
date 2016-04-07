@@ -23,7 +23,21 @@ class PostsController extends Controller
     public function index() {
         $user = JWTAuth::parseToken()->toUser();
         $posts = Post::where('user_id', $user->id)
-            ->orderBy('created_at', 'asc')->get();
+            ->orderBy('created_at', 'desc')
+            ->take(20)
+            ->get()
+            ->reverse()
+            ->values()->all();
+        return response()->json($posts);
+    }
+
+    public function getPublicPosts() {
+        $user = JWTAuth::parseToken()->toUser();
+        $posts = Post::where('text', 'LIKE', '%#public%')->orderBy('created_at', 'desc')
+            ->take(20)
+            ->get()
+            ->reverse()
+            ->values()->all();
         return response()->json($posts);
     }
 
